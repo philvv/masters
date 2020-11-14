@@ -74,7 +74,19 @@ if(isset($_GET['comp']) && $_GET['comp'] == 'foundry'){
     $entries['emma']['players'] = ['dustin-johnson', 'rahm', 'day', 'spieth', 'mickelson'];
     $entries['phil']['players'] = ['dechambeau', 'mcilroy', 'woods', 'oosthuizen', 'westwood'];
     $entries['dermot']['players'] = ['koepka', 'mcilroy', 'reed', 'casey', 'griffin'];
+    $entries['lucy']['players'] = ['dustin-johnson', 'rahm', 'finau', 'casey', 'rose'];if(isset($_GET['comp']) && $_GET['comp'] == 'foundry'){
+    $entries['chris']['players'] = ['schauffele', 'rahm', 'hatton', 'oosthuizen', 'rose'];
+    $entries['emma']['players'] = ['dustin-johnson', 'rahm', 'day', 'spieth', 'mickelson'];
+    $entries['phil']['players'] = ['dechambeau', 'mcilroy', 'woods', 'oosthuizen', 'westwood'];
+    $entries['dermot']['players'] = ['koepka', 'mcilroy', 'reed', 'casey', 'griffin'];
     $entries['lucy']['players'] = ['dustin-johnson', 'rahm', 'finau', 'casey', 'rose'];
+} if(isset($_GET['comp']) && $_GET['comp'] == 'lboys'){
+    $entries['brendan']['players'] = ['dechambeau', 'koepka', 'woods', 'spieth', 'mickelson'];
+    $entries['dermot']['players'] = ['koepka', 'mcilroy', 'reed', 'casey', 'griffin'];
+    $entries['gavin']['players'] = ['dustin-johnson', 'thomas', 'finau', 'champ', 'rose'];
+    $entries['kevin']['players'] = ['dechambeau', 'rahm', 'hatton', 'champ', 'ancer'];
+    $entries['mark']['players'] = ['dustin-johnson', 'thomas', 'finau', 'fowler', 'munoz'];
+    $entries['paddy']['players'] = ['dustin-johnson', 'mcilroy', 'fleetwood', 'lowry', 'conners'];
 } else {
     $entries['phil']['players'] = ['dechambeau', 'mcilroy', 'woods', 'oosthuizen', 'westwood'];
     $entries['pete']['players'] = ['dustin-johnson', 'koepka', 'fleetwood', 'fowler', 'westwood'];
