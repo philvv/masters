@@ -69,7 +69,7 @@ foreach($results as $key => $result){
 
 $entries = array();
 
-if(isset($_GET['comp']) && $_GET['comp'] != 'foundry'){
+if(isset($_GET['comp']) && $_GET['comp'] == 'foundry'){
     $entries['chris']['players'] = ['schauffele', 'rahm', 'hatton', 'oosthuizen', 'rose'];
     $entries['emma']['players'] = ['dustin-johnson', 'rahm', 'day', 'spieth', 'mickelson'];
     $entries['phil']['players'] = ['dechambeau', 'mcilroy', 'woods', 'oosthuizen', 'westwood'];
@@ -114,5 +114,5 @@ foreach($entries as $entrant => $entry){
 }
 
 foreach($entries as $entrant => $entry){
-    echo $entrant . ' ' .  $entry['score'] . PHP_EOL;
+    echo $entrant . ' ' .  $entry['score'] . '<br>';
 }
