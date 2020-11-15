@@ -94,7 +94,7 @@ if(isset($_GET['comp']) && $_GET['comp'] == 'foundry'){
     $entries['greg']['players'] = ['dustin-johnson', 'rahm', 'scott', 'oosthuizen', 'rose'];
 }
 
-$output = array();
+$standings = array();
 
 foreach($entries as $entrant => $entry){
     foreach($entry['players'] as $chosen_player){
@@ -102,13 +102,15 @@ foreach($entries as $entrant => $entry){
 
         foreach ($results as $result){
             if(stripos($result['player'], $chosen_player)  !== false){
+                $standings[$entrant]['players'][$chosen_player] = $result['score'];
+
                 $found = true;
                 //echo $entrant . ' chose ' . $result['player'] . ' ' . $result['score'] . PHP_EOL;
 
-                if(!isset($entries[$entrant]['score'])){
-                    $entries[$entrant]['score'] = $result['score'];
+                if(!isset($standings[$entrant]['overall'])){
+                    $standings[$entrant]['overall'] = $result['score'];
                 } else {
-                    $entries[$entrant]['score'] = $entries[$entrant]['score'] + $result['score'];
+                    $standings[$entrant]['overall'] = $standings[$entrant]['overall'] + $result['score'];
                 }
                 break;
             }
@@ -120,9 +122,11 @@ foreach($entries as $entrant => $entry){
     }
 }
 
-uasort($entries, function($a, $b) {
-    return $a['score'] - $b['score'];
+uasort($standings, function($a, $b) {
+    return $a['overall'] - $b['overall'];
 });
+
+//print_r($standings);exit();
 
 echo <<< EOT
 <style type="text/css">
@@ -136,11 +140,32 @@ echo <<< EOT
 <table class="tftable" border="1">
 <tr>
     <th>Name</th>   
+    <th>Overall</th>
+    <th>Choice 1</th>
+    <th>Score</th>
+    <th>Choice 2</th>
+    <th>Score</th>
+    <th>Choice 3</th>
+    <th>Score</th>
+    <th>Choice 4</th>
+    <th>Score</th>
+    <th>Choice 5</th>
     <th>Score</th>
 </tr>
 EOT;
-foreach($entries as $entrant => $entry){
-    $score = $entry['score'];
-    echo "<tr><td>$entrant</td><td>$score</td></tr>" . PHP_EOL;
+
+foreach($standings as $entrant => $standing){
+    $overall = $standing['overall'];
+    echo "<tr>" . PHP_EOL;
+    echo "<td>$entrant</td>" . PHP_EOL;
+    echo "<td>$overall</td>" . PHP_EOL;
+
+    foreach($standing['players'] as $player => $score){
+        echo "<td>$player</td>" . PHP_EOL;
+        echo "<td>$score</td>" . PHP_EOL;
+    }
+
+    echo "<tr>" . PHP_EOL;
 }
+
 echo "</table>";
