@@ -75,6 +75,13 @@ if(isset($_GET['comp']) && $_GET['comp'] == 'foundry'){
     $entries['phil']['players'] = ['dechambeau', 'mcilroy', 'woods', 'oosthuizen', 'westwood'];
     $entries['dermot']['players'] = ['koepka', 'mcilroy', 'reed', 'casey', 'griffin'];
     $entries['lucy']['players'] = ['dustin-johnson', 'rahm', 'finau', 'casey', 'rose'];
+} else if(isset($_GET['comp']) && $_GET['comp'] == 'lboys'){
+    $entries['brendan']['players'] = ['dechambeau', 'koepka', 'woods', 'spieth', 'mickelson'];
+    $entries['dermot']['players'] = ['koepka', 'mcilroy', 'reed', 'casey', 'griffin'];
+    $entries['gavin']['players'] = ['dustin-johnson', 'thomas', 'finau', 'champ', 'rose'];
+    $entries['kevin']['players'] = ['dechambeau', 'rahm', 'hatton', 'champ', 'ancer'];
+    $entries['mark']['players'] = ['dustin-johnson', 'thomas', 'finau', 'fowler', 'munoz'];
+    $entries['paddy']['players'] = ['dustin-johnson', 'mcilroy', 'fleetwood', 'lowry', 'conners'];
 } else {
     $entries['phil']['players'] = ['dechambeau', 'mcilroy', 'woods', 'oosthuizen', 'westwood'];
     $entries['pete']['players'] = ['dustin-johnson', 'koepka', 'fleetwood', 'fowler', 'westwood'];
@@ -113,6 +120,27 @@ foreach($entries as $entrant => $entry){
     }
 }
 
+uasort($entries, function($a, $b) {
+    return $a['score'] - $b['score'];
+});
+
+echo <<< EOT
+<style type="text/css">
+.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
+.tftable th {font-size:12px;background-color:#acc8cc;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;text-align:left;}
+.tftable tr {background-color:#d4e3e5;}
+.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
+.tftable tr:hover {background-color:#ffffff;}
+</style>
+
+<table class="tftable" border="1">
+<tr>
+    <th>Name</th>   
+    <th>Score</th>
+</tr>
+EOT;
 foreach($entries as $entrant => $entry){
-    echo $entrant . ' ' .  $entry['score'] . '<br>';
+    $score = $entry['score'];
+    echo "<tr><td>$entrant</td><td>$score</td></tr>" . PHP_EOL;
 }
+echo "</table>";
