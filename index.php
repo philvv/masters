@@ -71,7 +71,19 @@ foreach($results as $key => $result){
 
 $entries = array();
 
-if(isset($_GET['comp']) && $_GET['comp'] == 'philspals'){
+$comp = $_GET['comp'] ?? 'foundry';
+
+if($comp == 'boob'){
+    $entries['greg']['players'] = ['jason-day', 'adam-scott', 'dustin-johnson', 'rahm'];
+    $entries['sk']['players'] = ['fitzpatrick', 'spieth', 'justin-thomas', 'schauffele'];
+    $entries['shaw']['players'] = ['dechambeau', 'spieth', 'dustin-johnson', 'cantlay'];
+    $entries['simmsy']['players'] = ['mcIlroy', 'conners', 'thomas', 'dustin-johnson'];
+    $entries['charts']['players'] = ['koepka', 'kevin-na', 'stenson', 'patrick-reed'];
+    $entries['stevie']['players'] = ['dechambeau', 'spieth', 'thomas', 'patrick-reed'];
+    $entries['binso']['players'] = ['mcIlroy', 'spieth', 'dustin-johnson', 'thomas'];
+    $entries['peedee']['players'] = ['fitzpatrick', 'fleetwood', 'dustin-johnson', 'westwood'];
+    $entries['millsy']['players'] = ['koepka', 'spieth', 'dustin-johnson', 'thomas'];
+    $entries['boob']['players'] = ['mcIlroy', 'spieth', 'westwood', 'rahm'];
 
 } else {
     $entries['chris']['players'] = ['mcIlroy', 'spieth', 'schauffele', 'dustin-johnson'];
@@ -117,6 +129,8 @@ uasort($standings, function($a, $b) {
 });
 
 //print_r($standings);exit();
+
+$title = $comp == 'boob' ? 'Boobs' : 'Foundry';
 
 echo <<< EOT
 
@@ -212,7 +226,7 @@ echo <<< EOT
         }
        
     </style>
-<h1>Foundry Extreme Masters!</h1>
+<h1>$title Extreme Masters!</h1>
 <marquee>Winner Winner 🐔 Dinner</marquee>
 <div class="content">
         <div class="table-responsive">
