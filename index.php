@@ -208,13 +208,13 @@ echo <<< EOT
                     <tr>
                         <th>Name</th>   
                         <th>Overall</th>
-                        <th>Choice 1</th>
+                        <th>Pick 1</th>
                         <th>Score</th>
-                        <th>Choice 2</th>
+                        <th>Pick 2</th>
                         <th>Score</th>
-                        <th>Choice 3</th>
+                        <th>Pick 3</th>
                         <th>Score</th>
-                        <th>Choice 4</th>
+                        <th>Pick 4</th>
                         <th>Score</th>
                     </tr>
                 </thead>
