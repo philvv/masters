@@ -72,10 +72,12 @@ $entries = array();
 if(isset($_GET['comp']) && $_GET['comp'] == 'foundry'){
     $entries['chris']['players'] = ['mcilroy', 'spieth', 'schauffele', 'dustin-johnson'];
     $entries['lucy']['players'] = ['mcilroy', 'spieth', 'dustin-johnson', 'rahm'];
-    $entries['jill']['players'] = [];
-    $entries['dermot']['players'] = [];
-    $entries['phil']['players'] = [];
-    $entries['emma']['players'] = [];
+    $entries['david']['players'] = ['fitzpatrick', 'smith', 'dustin-johnson', 'thomas'];
+    $entries['dermot']['players'] = ['bryson', 'spieth', 'morikawa', 'dustin-johnson'];
+    $entries['phil']['players'] = ['dechambeau', 'lowry', 'stenson', 'zach-johnson'];
+    $entries['emma']['players'] = ['mcilroy', 'smith', 'thomas', 'dustin-johnson'];
+    $entries['catherine']['players'] = ['dechambeau', 'garcia', 'dustin-johnson', 'rahm'];
+    $entries['jill']['players'] = ['willett', 'fleetwood', 'dustin-johnson', 'stenson'];
 }
 
 $standings = array();
