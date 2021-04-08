@@ -69,7 +69,9 @@ foreach($results as $key => $result){
 
 $entries = array();
 
-if(isset($_GET['comp']) && $_GET['comp'] == 'foundry'){
+if(isset($_GET['comp']) && $_GET['comp'] == 'philspals'){
+
+} else {
     $entries['chris']['players'] = ['mcilroy', 'spieth', 'schauffele', 'dustin-johnson'];
     $entries['lucy']['players'] = ['mcilroy', 'spieth', 'dustin-johnson', 'rahm'];
     $entries['david']['players'] = ['fitzpatrick', 'smith', 'dustin-johnson', 'thomas'];
