@@ -243,6 +243,7 @@ foreach($standings as $entrant => $standing){
     echo "<td style='color: black; background: $color'>$entrant<//td>" . PHP_EOL;
     echo "<td>$overall</td>" . PHP_EOL;
 
+
     foreach($standing['players'] as $player => $score){
         echo "<td>$player</td>" . PHP_EOL;
         echo "<td>$score</td>" . PHP_EOL;
