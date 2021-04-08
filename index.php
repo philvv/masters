@@ -72,20 +72,10 @@ $entries = array();
 if(isset($_GET['comp']) && $_GET['comp'] == 'foundry'){
     $entries['chris']['players'] = ['mcilroy', 'spieth', 'schauffele', 'dustin-johnson'];
     $entries['lucy']['players'] = ['mcilroy', 'spieth', 'dustin-johnson', 'rahm'];
+    $entries['jill']['players'] = [];
     $entries['dermot']['players'] = [];
     $entries['phil']['players'] = [];
     $entries['emma']['players'] = [];
-    $entries['jill']['players'] = [];
-} else {
-    $entries['phil']['players'] = ['dechambeau', 'mcilroy', 'woods', 'oosthuizen'];
-    $entries['pete']['players'] = ['dustin-johnson', 'koepka', 'fleetwood', 'fowler'];
-    $entries['neil']['players'] = ['mcilroy', 'rahm', 'fleetwood', 'schauffele'];
-    $entries['david']['players'] = ['mcilroy', 'rahm', 'scott', 'fowler'];
-    $entries['naomi']['players'] = ['thomas', 'dechambeau', 'hatton', 'spieth'];
-    $entries['alan']['players'] = ['dechambeau', 'mcilroy', 'finau', 'casey'];
-    $entries['stevie']['players'] = ['dechambeau', 'mcilroy', 'finau', 'oosthuizen'];
-    $entries['chris']['players'] = ['brooks', 'dustin-johnson', 'fleetwood', 'fowler'];
-    $entries['greg']['players'] = ['dustin-johnson', 'rahm', 'scott', 'oosthuizen'];
 }
 
 $standings = array();
