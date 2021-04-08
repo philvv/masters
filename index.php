@@ -70,28 +70,12 @@ foreach($results as $key => $result){
 $entries = array();
 
 if(isset($_GET['comp']) && $_GET['comp'] == 'foundry'){
-    $entries['chris']['players'] = ['schauffele', 'rahm', 'hatton', 'oosthuizen', 'rose'];
-    $entries['emma']['players'] = ['dustin-johnson', 'rahm', 'day', 'spieth', 'mickelson'];
-    $entries['phil']['players'] = ['dechambeau', 'mcilroy', 'woods', 'oosthuizen', 'westwood'];
-    $entries['dermot']['players'] = ['koepka', 'mcilroy', 'reed', 'casey', 'griffin'];
-    $entries['lucy']['players'] = ['dustin-johnson', 'rahm', 'finau', 'casey', 'rose'];
-} else if(isset($_GET['comp']) && $_GET['comp'] == 'lboys'){
-    $entries['brendan']['players'] = ['dechambeau', 'koepka', 'woods', 'spieth', 'mickelson'];
-    $entries['dermot']['players'] = ['koepka', 'mcilroy', 'reed', 'casey', 'griffin'];
-    $entries['gavin']['players'] = ['dustin-johnson', 'thomas', 'finau', 'champ', 'rose'];
-    $entries['kevin']['players'] = ['dechambeau', 'rahm', 'hatton', 'champ', 'ancer'];
-    $entries['mark']['players'] = ['dustin-johnson', 'thomas', 'finau', 'fowler', 'munoz'];
-    $entries['paddy']['players'] = ['dustin-johnson', 'mcilroy', 'fleetwood', 'lowry', 'conners'];
-} else {
-    $entries['phil']['players'] = ['dechambeau', 'mcilroy', 'woods', 'oosthuizen', 'westwood'];
-    $entries['pete']['players'] = ['dustin-johnson', 'koepka', 'fleetwood', 'fowler', 'westwood'];
-    $entries['neil']['players'] = ['mcilroy', 'rahm', 'fleetwood', 'schauffele', 'wallace'];
-    $entries['david']['players'] = ['mcilroy', 'rahm', 'scott', 'fowler', 'mickelson'];
-    $entries['naomi']['players'] = ['thomas', 'dechambeau', 'hatton', 'spieth', 'westwood'];
-    $entries['alan']['players'] = ['dechambeau', 'mcilroy', 'finau', 'casey', 'munoz'];
-    $entries['stevie']['players'] = ['dechambeau', 'mcilroy', 'finau', 'oosthuizen', 'molinari'];
-    $entries['chris']['players'] = ['brooks', 'dustin-johnson', 'fleetwood', 'fowler', 'molinari'];
-    $entries['greg']['players'] = ['dustin-johnson', 'rahm', 'scott', 'oosthuizen', 'rose'];
+    $entries['chris']['players'] = ['mcilroy', 'spieth', 'schauffele', 'dustin-johnson'];
+    $entries['lucy']['players'] = ['mcilroy', 'spieth', 'dustin-johnson', 'rahm'];
+    $entries['jill']['players'] = [];
+    $entries['dermot']['players'] = [];
+    $entries['phil']['players'] = [];
+    $entries['emma']['players'] = [];
 }
 
 $standings = array();
@@ -148,8 +132,6 @@ echo <<< EOT
     <th>Choice 3</th>
     <th>Score</th>
     <th>Choice 4</th>
-    <th>Score</th>
-    <th>Choice 5</th>
     <th>Score</th>
 </tr>
 EOT;
