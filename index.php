@@ -117,27 +117,110 @@ uasort($standings, function($a, $b) {
 //print_r($standings);exit();
 
 echo <<< EOT
-<style type="text/css">
-.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
-.tftable th {font-size:12px;background-color:#acc8cc;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;text-align:left;}
-.tftable tr {background-color:#d4e3e5;}
-.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
-.tftable tr:hover {background-color:#ffffff;}
-</style>
 
-<table class="tftable" border="1">
-<tr>
-    <th>Name</th>   
-    <th>Overall</th>
-    <th>Choice 1</th>
-    <th>Score</th>
-    <th>Choice 2</th>
-    <th>Score</th>
-    <th>Choice 3</th>
-    <th>Score</th>
-    <th>Choice 4</th>
-    <th>Score</th>
-</tr>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: black;
+            color: limegreen;
+            text-transform: capitalize;
+        }
+        
+        h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+        
+        marquee {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 40%;
+        }
+        
+        @media only screen and (max-width: 600px) {
+            marquee {
+                width: 100%;
+                margin-bottom: 0.67rem;
+            }    
+        }
+        
+        .table-responsive {
+            overflow-x: auto;
+            display: block;
+            width: 100%;
+        }
+        
+        .content {
+            
+        }
+        
+        .table {
+            width: 100%;
+        }
+        
+        tr {
+            border-width: 1px 1px 1px 1px;
+            border-style: solid;
+            border-color: limegreen;
+        }
+        
+        td {
+            padding: 10px;
+            border-width: 1px 1px 1px 1px;
+            border-style: solid;
+            border-color: limegreen;
+            font-size: 10px;
+            width: 11.1%;
+        }
+        
+        th {
+            padding: 10px;
+            text-align: left;
+            border-width: 1px 1px 1px 1px;
+            border-style: solid;
+            border-color: limegreen;
+        }
+        
+        thead {
+            font-size: 16px;
+        }
+        
+        tr:hover {
+            background-color: gray;
+        }
+        
+        tr:last-child { 
+            border-width: 1px 1px 1px 1px;
+            border-style: solid;
+            border-color: limegreen;
+        }
+       
+    </style>
+<h1>Foundry Extreme Masters!</h1>
+<marquee>Winner Winner 🐔 Dinner</marquee>
+<div class="content">
+        <div class="table-responsive">
+            <table class="table tftable">
+                <thead>
+                    <tr>
+                        <th>Name</th>   
+                        <th>Overall</th>
+                        <th>Choice 1</th>
+                        <th>Score</th>
+                        <th>Choice 2</th>
+                        <th>Score</th>
+                        <th>Choice 3</th>
+                        <th>Score</th>
+                        <th>Choice 4</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+
 EOT;
 
 foreach($standings as $entrant => $standing){
@@ -150,8 +233,6 @@ foreach($standings as $entrant => $standing){
         echo "<td>$player</td>" . PHP_EOL;
         echo "<td>$score</td>" . PHP_EOL;
     }
-
-    echo "<tr>" . PHP_EOL;
 }
 
-echo "</table>";
+echo "</div></tbody></table></div>";
