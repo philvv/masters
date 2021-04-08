@@ -26,6 +26,8 @@ unset($contents[0]);
 
 $results = array();
 
+$colors = array("red", "green", "blue", "yellow", "orange", "cyan", "purple", "pink");
+
 foreach ($contents as $content) {
     $tds = explode('<td class="Table__TD">', $content);
 
@@ -173,7 +175,6 @@ echo <<< EOT
             border-style: solid;
             border-color: limegreen;
             font-size: 10px;
-            width: 11.1%;
         }
         
         th {
@@ -192,10 +193,22 @@ echo <<< EOT
             background-color: gray;
         }
         
+        .table-header tr:first-child { 
+            border-width: 1px 1px 1px 1px;
+            border-style: solid;
+            border-color: limegreen;
+            background: limegreen;
+            color: black;
+        }
+        
         tr:last-child { 
             border-width: 1px 1px 1px 1px;
             border-style: solid;
             border-color: limegreen;
+        }
+        
+        td:nth-child(odd){
+            width: 15%;
         }
        
     </style>
@@ -204,7 +217,7 @@ echo <<< EOT
 <div class="content">
         <div class="table-responsive">
             <table class="table tftable">
-                <thead>
+                <thead class="table-header">
                     <tr>
                         <th>Name</th>   
                         <th>Overall</th>
@@ -218,21 +231,23 @@ echo <<< EOT
                         <th>Score</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-body">
         
 
 EOT;
-
+$count = 0;
 foreach($standings as $entrant => $standing){
     $overall = $standing['overall'];
+    $color = $colors[$count];
     echo "<tr>" . PHP_EOL;
-    echo "<td>$entrant</td>" . PHP_EOL;
+    echo "<td style='color: black; background: $color'>$entrant<//td>" . PHP_EOL;
     echo "<td>$overall</td>" . PHP_EOL;
 
     foreach($standing['players'] as $player => $score){
         echo "<td>$player</td>" . PHP_EOL;
         echo "<td>$score</td>" . PHP_EOL;
     }
+    $count ++;
 }
 
 echo "</div></tbody></table></div>";
