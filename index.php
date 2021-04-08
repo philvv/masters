@@ -26,7 +26,7 @@ unset($contents[0]);
 
 $results = array();
 
-$colors = array("red", "green", "blue", "yellow", "orange", "cyan", "purple", "pink");
+$colors = array("red", "green", "blue", "yellow", "orange", "cyan", "purple", "pink", "blue", "orange");
 
 foreach ($contents as $content) {
     $tds = explode('<td class="Table__TD">', $content);
