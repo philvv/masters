@@ -11,6 +11,7 @@
         }
     ],
     "require": {
-        "paquettg/php-html-parser": "dev-master"
+        "paquettg/php-html-parser": "dev-master",
+        "curl/curl": "dev-master"
     }
 }

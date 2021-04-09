@@ -1,232 +1,8 @@
-<?php
-
-require "vendor/autoload.php";
-use PHPHtmlParser\Dom;
-
-//$scores_file = 'scores.html';
-//
-//if(!file_exists($scores_file)){
-//    $html = file_get_contents('http://www.espn.com/golf/leaderboard');
-//    file_put_contents($scores_file, $html);
-//} else {
-//    $html = file_get_contents($scores_file);
-//}
-//
-//$dom = new Dom;
-//$dom->loadFromFile($scores_file);
-
-$html = file_get_contents('http://www.espn.com/golf/leaderboard');
-
-$dom = new Dom;
-$dom->loadStr($html);
-
-$contents = $dom->find('tr');
-
-unset($contents[0]);
-
-$results = array();
-
-$colors = array("red", "green", "blue", "yellow", "orange", "cyan", "purple", "pink", "blue", "orange");
-
-foreach ($contents as $content) {
-    $tds = explode('<td class="Table__TD">', $content);
-
-    $bits = explode('leaderboard_player_name', $tds[0]);
-
-    if(!isset($bits[1])) continue;
-
-    $bits = explode(">", $bits[1]);
-    $name = explode("<", $bits[1])[0];
-    $name = trim(strtolower(explode('(a)', $name)[0]));
-    $name = str_replace(' ', '-', $name);
-
-    $results[] = [
-        'player' => $name,
-        'overall' => str_replace('</td>', '', $tds[1]),
-        'round_1' => str_replace('</td>', '', $tds[4]),
-        'round_2' => str_replace('</td>', '', $tds[5]),
-        'round_3' => str_replace('</td>', '', $tds[6]),
-        'round_4' => str_replace('</td>', '', $tds[7]),
-    ];
-}
-
-foreach($results as $key => $result){
-    if($result['overall'] == 'WD') {
-        unset($results[$key]);
-        continue;
-    }
-    if($result['overall'] == 'CUT') {
-        $results[$key]['score'] = ($result['round_1'] + $result['round_2']) - 144;
-    } else if($result['overall'] == 'E') {
-        $results[$key]['score'] = 0;
-    } else {
-        $results[$key]['score'] = trim(str_replace('+', '', $result['overall']));
-    }
-    unset($results[$key]['overall']);
-    unset($results[$key]['round_1']);
-    unset($results[$key]['round_2']);
-    unset($results[$key]['round_3']);
-    unset($results[$key]['round_4']);
-}
-
-$entries = array();
-
-$comp = $_GET['comp'] ?? 'foundry';
-
-if($comp == 'boob'){
-    $entries['greg']['players'] = ['jason-day', 'adam-scott', 'dustin-johnson', 'rahm'];
-    $entries['sk']['players'] = ['fitzpatrick', 'spieth', 'justin-thomas', 'schauffele'];
-    $entries['shaw']['players'] = ['dechambeau', 'spieth', 'dustin-johnson', 'cantlay'];
-    $entries['simmsy']['players'] = ['mcIlroy', 'conners', 'thomas', 'dustin-johnson'];
-    $entries['charts']['players'] = ['koepka', 'kevin-na', 'stenson', 'patrick-reed'];
-    $entries['stevie']['players'] = ['dechambeau', 'spieth', 'thomas', 'patrick-reed'];
-    $entries['binso']['players'] = ['mcIlroy', 'spieth', 'dustin-johnson', 'thomas'];
-    $entries['peedee']['players'] = ['fitzpatrick', 'fleetwood', 'dustin-johnson', 'westwood'];
-    $entries['millsy']['players'] = ['koepka', 'spieth', 'dustin-johnson', 'thomas'];
-    $entries['boob']['players'] = ['mcIlroy', 'spieth', 'westwood', 'rahm'];
-
-} else {
-    $entries['chris']['players'] = ['mcIlroy', 'spieth', 'schauffele', 'dustin-johnson'];
-    $entries['lucy']['players'] = ['mcIlroy', 'spieth', 'dustin-johnson', 'rahm'];
-    $entries['david']['players'] = ['fitzpatrick', 'smith', 'dustin-johnson', 'thomas'];
-    $entries['dermot']['players'] = ['dechambeau', 'spieth', 'morikawa', 'dustin-johnson'];
-    $entries['phil']['players'] = ['dechambeau', 'lowry', 'stenson', 'zach-johnson'];
-    $entries['emma']['players'] = ['mcIlroy', 'smith', 'thomas', 'dustin-johnson'];
-    $entries['catherine']['players'] = ['dechambeau', 'garcia', 'dustin-johnson', 'rahm'];
-    $entries['jill']['players'] = ['willett', 'fleetwood', 'dustin-johnson', 'stenson'];
-}
-
-$standings = array();
-
-foreach($entries as $entrant => $entry){
-    foreach($entry['players'] as $chosen_player){
-        $found = false;
-
-        foreach ($results as $result){
-            if(stripos($result['player'], $chosen_player)  !== false){
-                $standings[$entrant]['players'][$chosen_player] = $result['score'];
-
-                $found = true;
-                //echo $entrant . ' chose ' . $result['player'] . ' ' . $result['score'] . PHP_EOL;
-
-                if(!isset($standings[$entrant]['overall'])){
-                    $standings[$entrant]['overall'] = $result['score'];
-                } else {
-                    $standings[$entrant]['overall'] = $standings[$entrant]['overall'] + $result['score'];
-                }
-                break;
-            }
-        }
-
-        if(!$found){
-            echo $entrant . ' NOT MATCHED ' . $chosen_player . PHP_EOL;
-        }
-    }
-}
-
-uasort($standings, function($a, $b) {
-    return $a['overall'] - $b['overall'];
-});
-
-//print_r($standings);exit();
-
-$title = $comp == 'boob' ? 'Boobs' : 'Foundry';
-
-echo <<< EOT
-
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Press Start 2P', cursive;
-            background: black;
-            color: limegreen;
-            text-transform: capitalize;
-        }
-        
-        h1 {
-            font-size: 36px;
-            text-align: center;
-        }
-        
-        marquee {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          width: 40%;
-        }
-        
-        @media only screen and (max-width: 600px) {
-            marquee {
-                width: 100%;
-                margin-bottom: 0.67rem;
-            }    
-        }
-        
-        .table-responsive {
-            overflow-x: auto;
-            display: block;
-            width: 100%;
-        }
-        
-        .content {
-            
-        }
-        
-        .table {
-            width: 100%;
-        }
-        
-        tr {
-            border-width: 1px 1px 1px 1px;
-            border-style: solid;
-            border-color: limegreen;
-        }
-        
-        td {
-            padding: 10px;
-            border-width: 1px 1px 1px 1px;
-            border-style: solid;
-            border-color: limegreen;
-            font-size: 10px;
-        }
-        
-        th {
-            padding: 10px;
-            text-align: left;
-            border-width: 1px 1px 1px 1px;
-            border-style: solid;
-            border-color: limegreen;
-        }
-        
-        thead {
-            font-size: 16px;
-        }
-        
-        tr:hover {
-            background-color: gray;
-        }
-        
-        .table-header tr:first-child { 
-            border-width: 1px 1px 1px 1px;
-            border-style: solid;
-            border-color: limegreen;
-            background: limegreen;
-            color: black;
-        }
-        
-        tr:last-child { 
-            border-width: 1px 1px 1px 1px;
-            border-style: solid;
-            border-color: limegreen;
-        }
-        
-        td:nth-child(odd){
-            width: 15%;
-        }
-       
-    </style>
-<h1>$title Extreme Masters!</h1>
+<link rel="stylesheet" href="css/style.css">
+
+<h1> $title Extreme Masters!</h1>
 <marquee>Winner Winner 🐔 Dinner</marquee>
 <div class="content">
         <div class="table-responsive">
@@ -246,23 +22,124 @@ echo <<< EOT
                     </tr>
                 </thead>
                 <tbody class="table-body">
-        
+                </tbody>
+            </table>
+        </div>
+</div>
 
-EOT;
-$count = 0;
-foreach($standings as $entrant => $standing){
-    $overall = $standing['overall'];
-    $color = $colors[$count];
-    echo "<tr>" . PHP_EOL;
-    echo "<td style='color: black; background: $color'>$entrant<//td>" . PHP_EOL;
-    echo "<td>$overall</td>" . PHP_EOL;
+<?php
 
+session_start();
 
-    foreach($standing['players'] as $player => $score){
-        echo "<td>$player</td>" . PHP_EOL;
-        echo "<td>$score</td>" . PHP_EOL;
-    }
-    $count ++;
+$colors = array("red", "green", "blue", "yellow", "orange", "cyan", "purple", "pink", "blue", "orange");
+
+if(isset($_GET['logout'])){
+
+    $logout_message = "<div class='msgln'><span class='left-info'><b class='user-name-left' style='background: ".$_SESSION['color']."'>". $_SESSION['name'] ."</b> has left the chat session.</span><br></div>";
+    file_put_contents("log.html", $logout_message, FILE_APPEND | LOCK_EX);
+    session_destroy();
+    header("Location: index.php");
 }
 
-echo "</div></tbody></table></div>";
+$color_number = rand(1,10);
+//echo $color_number;
+
+if(isset($_POST['enter'])){
+    if($_POST['name'] != ""){
+        $_SESSION['name'] = stripslashes(htmlspecialchars($_POST['name']));
+        $login_message = "<div class='msgln'><span class='left-info'><b class='user-name-left' style='background: limegreen'>". $_SESSION['name'] ."</b> has entered the chat session.</span><br></div>";
+        file_put_contents("log.html", $login_message, FILE_APPEND | LOCK_EX);
+        $color = $colors[$color_number];
+        $_SESSION['color'] = $color;
+
+    }
+    else{
+        echo '<span class="error">Please type in a name</span>';
+    }
+
+}
+
+
+function loginForm(){
+    echo
+    '<div id="loginform">
+    <p>Please enter your name to chat!</p>
+    <form action="index.php" method="post">
+      <label for="name">Name &mdash;</label>
+      <input type="text" name="name" id="name" />
+      <input type="submit" name="enter" id="enter" value="Enter" />
+    </form>
+  </div>';
+
+}
+
+    if(!isset($_SESSION['name'])){
+        loginForm();
+    }
+    else {
+
+
+    ?>
+        <div id="wrapper">
+            <div id="menu">
+                <p class="welcome">Welcome, <b style="color:<?php echo $_SESSION['color'] ?>"><?php echo $_SESSION['name']; ?></b></p>
+                <p class="logout"><a id="exit" href="#">Exit Chat</a></p>
+            </div>
+
+            <div id="chatbox">
+            <?php
+            if(file_exists("log.html") && filesize("log.html") > 0){
+                $contents = file_get_contents("log.html");
+                echo $contents;
+            }
+            ?>
+            </div>
+
+            <form name="message" action="">
+                <input name="usermsg" type="text" id="usermsg" />
+                <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
+            </form>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            // jQuery Document
+            $(document).ready(function () {
+                $("#submitmsg").click(function () {
+                    var clientmsg = $("#usermsg").val();
+                    $.post("post.php", { text: clientmsg });
+                    $("#usermsg").val("");
+                    return false;
+                });
+
+                function loadLog() {
+                    var oldscrollHeight = $("#chatbox")[0].scrollHeight - 5;
+                    $.ajax({
+                        url: "log.html",
+                        cache: false,
+                        success: function (html) {
+                            $("#chatbox").html(html);
+
+                            //Auto-scroll
+                            var newscrollHeight = $("#chatbox")[0].scrollHeight - 5;
+                            if(newscrollHeight > oldscrollHeight){
+                                $("#chatbox").animate({ scrollTop: newscrollHeight }, 'normal');
+                            }
+                        }
+                    });
+                }
+
+                setInterval (loadLog, 2500);
+
+                $("#exit").click(function () {
+                    var exit = confirm("Are you sure you want to end the session?");
+                    if (exit == true) {
+                    window.location = "index.php?logout=true";
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
+<?php
+}
+?>
