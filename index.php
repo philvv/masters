@@ -90,6 +90,13 @@ if($comp == 'boob'){
 
 } else {
     $entries['shane']['players'] = ['louis-oosthuizen', 'justin-thomas', 'shane-lowry', 'thomas-pieters', 'padraig-harrington'];
+    $entries['jorg']['players'] = ['louis-oosthuizen', 'xander-schauffele', 'tiger-woods', 'lucas-herbert', 'bernhard-langer'];
+    $entries['chris']['players'] = ['cameron-smith', 'justin-thomas', 'adam-scott', 'francesco-molinari', 'zach-johnson'];
+    $entries['conor']['players'] = ['dustin-johnson', 'jon-rahm', 'tony-finau', 'kevin-na', 'charl-schwartzel'];
+    $entries['emma']['players'] = ['cameron-smith', 'scottie-scheffler', 'adam-scott', 'kevin-kisner', 'lucas-glover'];
+//    $entries['']['players'] = ['', '', '', '', ''];
+//    $entries['']['players'] = ['', '', '', '', ''];
+//    $entries['']['players'] = ['', '', '', '', ''];
 //    $entries['']['players'] = ['', '', '', '', ''];
 //    $entries['']['players'] = ['', '', '', '', ''];
 //    $entries['']['players'] = ['', '', '', '', ''];
