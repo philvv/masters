@@ -74,10 +74,21 @@ $entries = array();
 $comp = $_GET['comp'] ?? 'boob';
 
 if($comp == 'boob'){
+    $entries['boob']['players'] = ['jon-rahm', 'brooks-koepka', 'matt-fitzpatrick', 'jason-kokrak', 'zach-johnson'];
     $entries['millsy']['players'] = ['jordan-spieth', 'brooks-koepka', 'tony-finau', 'francesco-molinari', 'zach-johnson'];
+    $entries['peedee']['players'] = ['jon-rahm', 'viktor-hovland', 'tommy-fleetwood', 'kevin-na', 'harry-higgs'];
+    $entries['stevie']['players'] = ['justin-thomas', 'viktor-hovland', 'matt-fitzpatrick', 'kevin-kisner', 'padraig-harrington'];
+    $entries['bungsy']['players'] = ['cameron-smith', 'justin-thomas', 'paul-casey', 'lee-westwood', 'zach-johnson'];
+    $entries['binso']['players'] = ['jon-rahm', 'justin-thomas', 'joaquin-niemann', 'thomas-pieters', 'charl-schwartzel'];
+    $entries['simmsy']['players'] = ['brooks-koepka', 'rory-mcilroy', 'corey-conners', 'brian-harman', 'lucas-glover'];
+    $entries['neiller']['players'] = ['cameron-smith', 'justin-thomas', 'tony-finau', 'gary-woodland', 'hudson-swafford'];
 
 } else {
 
+    $entries['']['players'] = ['', '', '', '', ''];
+    $entries['']['players'] = ['', '', '', '', ''];
+    $entries['']['players'] = ['', '', '', '', ''];
+    $entries['']['players'] = ['', '', '', '', ''];
 }
 
 $standings = array();
