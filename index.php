@@ -227,6 +227,8 @@ echo <<< EOT
                         <th>Score</th>
                         <th>Pick 4</th>
                         <th>Score</th>
+                        <th>Pick 5</th>
+                        <th>Score</th>
                     </tr>
                 </thead>
                 <tbody class="table-body">
