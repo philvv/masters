@@ -41,7 +41,7 @@ foreach ($contents as $content) {
     $name = str_replace(' ', '-', $name);
 
     $results[] = [
-        'player' => $name,
+        'player' => strtolower($name),
         'overall' => str_replace('</td>', '', $bits[4]),
         'round_1' => str_replace('</td>', '', $bits[10]),
         'round_2' => str_replace('</td>', '', $bits[12]),
@@ -62,6 +62,9 @@ foreach($results as $key => $result){
     } else {
         $results[$key]['score'] = trim(str_replace('+', '', $result['overall']));
     }
+
+    $results[$key]['score'] = (int) $results[$key]['score'];
+
     unset($results[$key]['overall']);
     unset($results[$key]['round_1']);
     unset($results[$key]['round_2']);
@@ -78,9 +81,9 @@ if($comp == 'boob'){
     $entries['millsy']['players'] = ['jordan-spieth', 'brooks-koepka', 'tony-finau', 'francesco-molinari', 'zach-johnson'];
     $entries['peedee']['players'] = ['jon-rahm', 'viktor-hovland', 'tommy-fleetwood', 'kevin-na', 'harry-higgs'];
     $entries['stevie']['players'] = ['justin-thomas', 'viktor-hovland', 'matt-fitzpatrick', 'kevin-kisner', 'padraig-harrington'];
-    $entries['bungsy']['players'] = ['cameron-smith', 'justin-thomas', 'paul-casey', 'lee-westwood', 'zach-johnson'];
+    $entries['bungsy']['players'] = ['cameron-smith', 'justin-thomas', 'casey', 'lee-westwood', 'zach-johnson'];
     $entries['binso']['players'] = ['jon-rahm', 'justin-thomas', 'joaquin-niemann', 'thomas-pieters', 'charl-schwartzel'];
-    $entries['simmsy']['players'] = ['brooks-koepka', 'rory-mcilroy', 'corey-conners', 'brian-harman', 'lucas-glover'];
+    $entries['simmsy']['players'] = ['brooks-koepka', 'rory-mcilroy', 'corey-conners', 'brian-harman', 'lucas'];
     $entries['neiller']['players'] = ['cameron-smith', 'justin-thomas', 'tony-finau', 'gary-woodland', 'hudson-swafford'];
 
 } else {
