@@ -29,7 +29,7 @@ $results = array();
 $colors = array("red", "green", "blue", "yellow", "orange", "cyan", "purple", "pink", "blue", "orange");
 
 foreach ($contents as $content) {
-    $tds = explode('<td class="Table__TD">', $content);
+    $tds = explode('<td class="PlayerRow__Overview PlayerRow__Overview--expandable Table__TR Table__even">', $content);
 
     $bits = explode('leaderboard_player_name', $tds[0]);
 
@@ -42,11 +42,11 @@ foreach ($contents as $content) {
 
     $results[] = [
         'player' => $name,
-        'overall' => str_replace('</td>', '', $tds[1]),
-        'round_1' => str_replace('</td>', '', $tds[4]),
-        'round_2' => str_replace('</td>', '', $tds[5]),
-        'round_3' => str_replace('</td>', '', $tds[6]),
-        'round_4' => str_replace('</td>', '', $tds[7]),
+        'overall' => str_replace('</td>', '', $bits[4]),
+        'round_1' => str_replace('</td>', '', $bits[10]),
+        'round_2' => str_replace('</td>', '', $bits[12]),
+        'round_3' => str_replace('</td>', '', $bits[14]),
+        'round_4' => str_replace('</td>', '', $bits[16]),
     ];
 }
 
@@ -71,29 +71,13 @@ foreach($results as $key => $result){
 
 $entries = array();
 
-$comp = $_GET['comp'] ?? 'foundry';
+$comp = $_GET['comp'] ?? 'boob';
 
 if($comp == 'boob'){
-    $entries['greg']['players'] = ['jason-day', 'adam-scott', 'dustin-johnson', 'rahm'];
-    $entries['sk']['players'] = ['fitzpatrick', 'spieth', 'justin-thomas', 'schauffele'];
-    $entries['shaw']['players'] = ['dechambeau', 'spieth', 'dustin-johnson', 'cantlay'];
-    $entries['simmsy']['players'] = ['mcIlroy', 'conners', 'thomas', 'dustin-johnson'];
-    $entries['charts']['players'] = ['koepka', 'kevin-na', 'stenson', 'patrick-reed'];
-    $entries['stevie']['players'] = ['dechambeau', 'spieth', 'thomas', 'patrick-reed'];
-    $entries['binso']['players'] = ['mcIlroy', 'spieth', 'dustin-johnson', 'thomas'];
-    $entries['peedee']['players'] = ['fitzpatrick', 'fleetwood', 'dustin-johnson', 'westwood'];
-    $entries['millsy']['players'] = ['koepka', 'spieth', 'dustin-johnson', 'thomas'];
-    $entries['boob']['players'] = ['mcIlroy', 'spieth', 'westwood', 'rahm'];
+    $entries['millsy']['players'] = ['jordan-spieth', 'brooks-koepka', 'tony-finau', 'francesco-molinari', 'zach-johnson'];
 
 } else {
-    $entries['chris']['players'] = ['mcIlroy', 'spieth', 'schauffele', 'dustin-johnson'];
-    $entries['lucy']['players'] = ['mcIlroy', 'spieth', 'dustin-johnson', 'rahm'];
-    $entries['david']['players'] = ['fitzpatrick', 'smith', 'dustin-johnson', 'thomas'];
-    $entries['dermot']['players'] = ['dechambeau', 'spieth', 'morikawa', 'dustin-johnson'];
-    $entries['phil']['players'] = ['dechambeau', 'lowry', 'stenson', 'zach-johnson'];
-    $entries['emma']['players'] = ['mcIlroy', 'smith', 'thomas', 'dustin-johnson'];
-    $entries['catherine']['players'] = ['dechambeau', 'garcia', 'dustin-johnson', 'rahm'];
-    $entries['jill']['players'] = ['willett', 'fleetwood', 'dustin-johnson', 'stenson'];
+
 }
 
 $standings = array();
