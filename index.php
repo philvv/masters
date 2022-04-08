@@ -90,10 +90,10 @@ if($comp == 'boob'){
 
 } else {
 
-    $entries['']['players'] = ['', '', '', '', ''];
-    $entries['']['players'] = ['', '', '', '', ''];
-    $entries['']['players'] = ['', '', '', '', ''];
-    $entries['']['players'] = ['', '', '', '', ''];
+    $entries['shane']['players'] = ['louis-oosthuizen', 'justin-thomas', 'shane-lowry', 'thomas-pieters', 'padraig-harrington'];
+//    $entries['']['players'] = ['', '', '', '', ''];
+//    $entries['']['players'] = ['', '', '', '', ''];
+//    $entries['']['players'] = ['', '', '', '', ''];
 }
 
 $standings = array();
