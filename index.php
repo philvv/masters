@@ -42,11 +42,11 @@ foreach ($contents as $content) {
 
     $results[] = [
         'player' => strtolower($name),
-        'overall' => str_replace('</td>', '', $bits[4]),
-        'round_1' => str_replace('</td>', '', $bits[10]),
-        'round_2' => str_replace('</td>', '', $bits[12]),
-        'round_3' => str_replace('</td>', '', $bits[14]),
-        'round_4' => str_replace('</td>', '', $bits[16]),
+        'overall' => str_replace('</td', '', $bits[4]),
+        'round_1' => str_replace('</td', '', $bits[10]),
+        'round_2' => str_replace('</td', '', $bits[12]),
+        'round_3' => str_replace('</td', '', $bits[14]),
+        'round_4' => str_replace('</td', '', $bits[16]),
     ];
 }
 
@@ -62,8 +62,6 @@ foreach($results as $key => $result){
     } else {
         $results[$key]['score'] = trim(str_replace('+', '', $result['overall']));
     }
-
-    $results[$key]['score'] = (int) $results[$key]['score'];
 
     unset($results[$key]['overall']);
     unset($results[$key]['round_1']);
