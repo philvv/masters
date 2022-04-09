@@ -52,15 +52,15 @@ foreach ($contents as $content) {
 
 foreach($results as $key => $result){
     if($result['overall'] == 'WD') {
-        unset($results[$key]);
+        $results[$key]['score'] = 0;
         continue;
     }
     if($result['overall'] == 'CUT') {
-        $results[$key]['score'] = ($result['round_1'] + $result['round_2']) - 144;
+        $results[$key]['score'] = ((int) $result['round_1'] + (int) $result['round_2']) - 144;
     } else if($result['overall'] == 'E') {
         $results[$key]['score'] = 0;
     } else {
-        $results[$key]['score'] = trim(str_replace('+', '', $result['overall']));
+        $results[$key]['score'] = (int) trim(str_replace('+', '', $result['overall']));
     }
 
     unset($results[$key]['overall']);
@@ -72,7 +72,7 @@ foreach($results as $key => $result){
 
 $entries = array();
 
-$comp = $_GET['comp'] ?? 'boob';
+$comp = $_GET['comp'] ?? 'foundry';
 
 if($comp == 'boob'){
     $entries['boob']['players'] = ['jon-rahm', 'brooks-koepka', 'matt-fitzpatrick', 'jason-kokrak', 'zach-johnson'];
