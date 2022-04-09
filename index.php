@@ -53,14 +53,12 @@ foreach ($contents as $content) {
 foreach($results as $key => $result){
     if($result['overall'] == 'WD') {
         $results[$key]['score'] = 0;
-        continue;
-    }
-    if($result['overall'] == 'CUT') {
-        $results[$key]['score'] = ((int) $result['round_1'] + (int) $result['round_2']) - 144;
+    } else if($result['overall'] == 'CUT') {
+        $results[$key]['score'] = ($result['round_1'] + $result['round_2']) - 144;
     } else if($result['overall'] == 'E') {
         $results[$key]['score'] = 0;
     } else {
-        $results[$key]['score'] = (int) trim(str_replace('+', '', $result['overall']));
+        $results[$key]['score'] = trim(str_replace('+', '', $result['overall']));
     }
 
     unset($results[$key]['overall']);
