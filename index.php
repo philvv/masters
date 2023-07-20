@@ -68,38 +68,34 @@ foreach($results as $key => $result){
     unset($results[$key]['round_4']);
 }
 
-$entries = array();
+$players_raw = file_get_contents('players');
+$players = [];
 
-$comp = $_GET['comp'] ?? 'foundry';
+foreach (explode(PHP_EOL, $players_raw) as $player){
+    $chunks = explode(' ', $player);
+    $players[$chunks[0]] = $chunks[1];
+}
 
-if($comp == 'boob'){
-    $entries['boob']['players'] = ['jon-rahm', 'brooks-koepka', 'matt-fitzpatrick', 'jason-kokrak', 'zach-johnson'];
-    $entries['millsy']['players'] = ['jordan-spieth', 'brooks-koepka', 'tony-finau', 'francesco-molinari', 'zach-johnson'];
-    $entries['peedee']['players'] = ['jon-rahm', 'viktor-hovland', 'tommy-fleetwood', 'kevin-na', 'harry-higgs'];
-    $entries['stevie']['players'] = ['justin-thomas', 'viktor-hovland', 'matt-fitzpatrick', 'kevin-kisner', 'padraig-harrington'];
-    $entries['bungsy']['players'] = ['cameron-smith', 'justin-thomas', 'tyrrell-hatton', 'lee-westwood', 'zach-johnson'];
-    $entries['binso']['players'] = ['jon-rahm', 'justin-thomas', 'joaquin-niemann', 'thomas-pieters', 'charl-schwartzel'];
-    $entries['simmsy']['players'] = ['brooks-koepka', 'rory-mcilroy', 'corey-conners', 'brian-harman', 'lucas'];
-    $entries['neiller']['players'] = ['cameron-smith', 'justin-thomas', 'tony-finau', 'gary-woodland', 'hudson-swafford'];
-    $entries['shawsy']['players'] = ['rory-mcilroy', 'sam-burns', 'wolff', 'lee-westwood', 'charl-schwartzel'];
-    $entries['martin']['players'] = ['jon-rahm', 'rory-mcilroy', 'sergio-garcia', 'francesco-molinari', 'fred-couples'];
+$entries_raw = file_get_contents('entries');
+$entries = [];
 
-} else {
-    $entries['phil']['players'] = ['jon-rahm', 'brooks-koepka', 'matt-fitzpatrick', 'jason-kokrak', 'zach-johnson'];
-    $entries['shane']['players'] = ['louis-oosthuizen', 'justin-thomas', 'shane-lowry', 'thomas-pieters', 'padraig-harrington'];
-    $entries['jorg']['players'] = ['louis-oosthuizen', 'xander-schauffele', 'tiger-woods', 'lucas-herbert', 'bernhard-langer'];
-    $entries['chris']['players'] = ['cameron-smith', 'justin-thomas', 'adam-scott', 'francesco-molinari', 'zach-johnson'];
-    $entries['conor']['players'] = ['dustin-johnson', 'jon-rahm', 'tony-finau', 'kevin-na', 'charl-schwartzel'];
-    $entries['emma']['players'] = ['cameron-smith', 'scottie-scheffler', 'adam-scott', 'kevin-kisner', 'lucas-glover'];
-    $entries['lucy']['players'] = ['jon-rahm', 'justin-thomas', 'shane-lowry', 'gary-woodland', 'spaun'];
-    $entries['dermot']['players'] = ['jon-rahm', 'scottie-scheffler', 'patrick-reed', 'kevin-kisner', 'takumi-kanaya'];
-    $entries['peter']['players'] = ['viktor-hovland', 'louis-oosthuizen', 'paul-casey', 'ryan-palmer', 'padraig-harrington'];
-    $entries['david']['players'] = ['cameron-smith', 'scottie-scheffler', 'shane-lowry', 'thomas-pieters', 'padraig-harrington'];
+foreach (explode(PHP_EOL, $entries_raw) as $entry){
+    $chunks = explode(' ', $entry);
+    $codes = explode(',', $chunks[1]);
+
+
+    $players_code = [];
+
+    $entries[] = [
+        'name' => $chunks[0],
+        'players' => [$players[$codes[0]], $players[$codes[1]], $players[$codes[2]], $players[$codes[3]]]
+    ];
 }
 
 $standings = array();
 
-foreach($entries as $entrant => $entry){
+foreach($entries as $entry){
+    $entrant = $entry['name'];
     foreach($entry['players'] as $chosen_player){
         $found = false;
 
@@ -128,10 +124,6 @@ foreach($entries as $entrant => $entry){
 uasort($standings, function($a, $b) {
     return $a['overall'] - $b['overall'];
 });
-
-//print_r($standings);exit();
-
-$title = $comp == 'boob' ? 'Boobs' : 'Foundry';
 
 echo <<< EOT
 
@@ -227,7 +219,7 @@ echo <<< EOT
         }
        
     </style>
-<h1>$title Extreme Masters!</h1>
+<h1>Ceefax style Open for SK</h1>
 <marquee>Winner Winner 🐔 Dinner</marquee>
 <div class="content">
         <div class="table-responsive">
@@ -243,8 +235,6 @@ echo <<< EOT
                         <th>Pick 3</th>
                         <th>Score</th>
                         <th>Pick 4</th>
-                        <th>Score</th>
-                        <th>Pick 5</th>
                         <th>Score</th>
                     </tr>
                 </thead>
