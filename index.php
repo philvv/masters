@@ -26,7 +26,7 @@ unset($contents[0]);
 
 $results = array();
 
-$colors = array("red", "green", "blue", "yellow", "orange", "cyan", "purple", "pink", "blue", "orange");
+$colors = array("Moccasin", "white", "yellow", "LightBlue", "SandyBrown", "cyan", "pink", "LightGray");
 
 foreach ($contents as $content) {
     $tds = explode('<td class="PlayerRow__Overview PlayerRow__Overview--expandable Table__TR Table__even">', $content);
