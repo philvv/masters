@@ -1,5 +1,5 @@
 <?php
-
+//error_reporting(E_ALL & ~E_NOTICE);
 require "vendor/autoload.php";
 use PHPHtmlParser\Dom;
 
@@ -15,7 +15,7 @@ use PHPHtmlParser\Dom;
 //$dom = new Dom;
 //$dom->loadFromFile($scores_file);
 
-$html = file_get_contents('http://www.espn.com/golf/leaderboard');
+$html = file_get_contents('https://www.espn.com/golf/leaderboard');
 
 $dom = new Dom;
 $dom->loadStr($html);
@@ -41,7 +41,7 @@ foreach ($contents as $content) {
     $name = str_replace(' ', '-', $name);
 
     $results[] = [
-        'player' => strtolower($name),
+        'player'  => strtolower($name),
         'overall' => str_replace('</td', '', $bits[4]),
         'round_1' => str_replace('</td', '', $bits[10]),
         'round_2' => str_replace('</td', '', $bits[12]),
@@ -104,7 +104,7 @@ foreach($entries as $entry){
                 $standings[$entrant]['players'][$chosen_player] = $result['score'];
 
                 $found = true;
-                //echo $entrant . ' chose ' . $result['player'] . ' ' . $result['score'] . PHP_EOL;
+                echo $entrant . ' chose ' . $result['player'] . ' ' . $result['score'] . PHP_EOL;
 
                 if(!isset($standings[$entrant]['overall'])){
                     $standings[$entrant]['overall'] = $result['score'];
@@ -125,122 +125,40 @@ uasort($standings, function($a, $b) {
     return $a['overall'] - $b['overall'];
 });
 
+$date = date("Md");
+$time = date('H:i:s');
+
 echo <<< EOT
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Press Start 2P', cursive;
-            background: black;
-            color: limegreen;
-            text-transform: capitalize;
-        }
-        
-        h1 {
-            font-size: 36px;
-            text-align: center;
-        }
-        
-        marquee {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          width: 40%;
-        }
-        
-        @media only screen and (max-width: 600px) {
-            marquee {
-                width: 100%;
-                margin-bottom: 0.67rem;
-            }    
-        }
-        
-        .table-responsive {
-            overflow-x: auto;
-            display: block;
-            width: 100%;
-        }
-        
-        .content {
-            
-        }
-        
-        .table {
-            width: 100%;
-        }
-        
-        tr {
-            border-width: 1px 1px 1px 1px;
-            border-style: solid;
-            border-color: limegreen;
-        }
-        
-        td {
-            padding: 10px;
-            border-width: 1px 1px 1px 1px;
-            border-style: solid;
-            border-color: limegreen;
-            font-size: 10px;
-        }
-        
-        th {
-            padding: 10px;
-            text-align: left;
-            border-width: 1px 1px 1px 1px;
-            border-style: solid;
-            border-color: limegreen;
-        }
-        
-        thead {
-            font-size: 16px;
-        }
-        
-        tr:hover {
-            background-color: gray;
-        }
-        
-        .table-header tr:first-child { 
-            border-width: 1px 1px 1px 1px;
-            border-style: solid;
-            border-color: limegreen;
-            background: limegreen;
-            color: black;
-        }
-        
-        tr:last-child { 
-            border-width: 1px 1px 1px 1px;
-            border-style: solid;
-            border-color: limegreen;
-        }
-        
-        td:nth-child(odd){
-            width: 15%;
-        }
-       
-    </style>
-<h1>Ceefax style Open for SK</h1>
-<marquee>Winner Winner 🐔 Dinner</marquee>
-<div class="content">
-        <div class="table-responsive">
-            <table class="table tftable">
-                <thead class="table-header">
-                    <tr>
-                        <th>Name</th>   
-                        <th>Overall</th>
-                        <th>Pick 1</th>
-                        <th>Score</th>
-                        <th>Pick 2</th>
-                        <th>Score</th>
-                        <th>Pick 3</th>
-                        <th>Score</th>
-                        <th>Pick 4</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody class="table-body">
-        
+<link rel="stylesheet" href="styles.css">
 
+<h2>P130<span class="ceefax">Ceefax</span>130 $date <span style="color: yellow;">$time</span></h2>
+
+<h1>
+    <span class="bbc">B</span><span class="bbc">B</span><span class="bbc">C</span><span class="ceefax" style="color: limegreen;">GOLF</span>
+</h1>
+<hr style="border-color: blue;">
+<p style="color: limegreen;">Masters tournament 2024</p>
+<div class="content">
+    <div class="table-responsive">
+        <table class="table tftable">
+            <thead class="table-header">
+                <tr>
+                    <th>Name</th>   
+                    <th>Overall</th>
+                    <th>Pick 1</th>
+                    <th>Score</th>
+                    <th>Pick 2</th>
+                    <th>Score</th>
+                    <th>Pick 3</th>
+                    <th>Score</th>
+                    <th>Pick 4</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
 EOT;
 $count = 0;
 foreach($standings as $entrant => $standing){
@@ -258,4 +176,4 @@ foreach($standings as $entrant => $standing){
     $count ++;
 }
 
-echo "</div></tbody></table></div>";
+echo "</tr></tbody></table></div><h2 class='ceefax' style='margin-top: 20px; text-align: center'>Ceefax: The world at your fingertips</h2>";
