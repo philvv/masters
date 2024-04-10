@@ -125,6 +125,7 @@ uasort($standings, function($a, $b) {
     return $a['overall'] - $b['overall'];
 });
 
+$year = date("Y");
 $date = date("Md");
 $time = date('H:i:s');
 
@@ -140,7 +141,7 @@ echo <<< EOT
     <span class="bbc">B</span><span class="bbc">B</span><span class="bbc">C</span><span class="ceefax" style="color: limegreen;">GOLF</span>
 </h1>
 <hr style="border-color: blue;">
-<p style="color: limegreen;">Masters tournament 2024</p>
+<p style="color: limegreen;">Masters tournament $year</p>
 <div class="content">
     <div class="table-responsive">
         <table class="table tftable">
