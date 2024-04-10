@@ -9,9 +9,9 @@
 @media screen and (max-width: 600px) {
     /* … */
     :root {
-        --font-size-large: 1rem;
+        --font-size-large: 1.5rem;
         --font-size-medium: 0.5rem;
-        --font-size-normal: 1rem;
+        --font-size-normal: 1.3rem;
         --font-size-small: 1rem;
     }
 }
