@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "73791596be2e7e6d98007faa928a7810",
+    "content-hash": "3e893bd0c3efce1612df783d2d289393",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -810,6 +810,60 @@
             "time": "2019-03-08T08:55:37+00:00"
         },
         {
+            "name": "stidges/country-flags",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stidges/country-flags.git",
+                "reference": "df430c00fdf6218afef5f3b73051e6855a96038f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stidges/country-flags/zipball/df430c00fdf6218afef5f3b73051e6855a96038f",
+                "reference": "df430c00fdf6218afef5f3b73051e6855a96038f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stidges\\CountryFlags\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stidges",
+                    "email": "info@stidges.com",
+                    "homepage": "https://stidges.com"
+                }
+            ],
+            "description": "A small package to convert a country code to the corresponding country flag emoji",
+            "homepage": "https://github.com/stidges/country-flags",
+            "keywords": [
+                "countries",
+                "country",
+                "country-flags",
+                "emoji",
+                "flag",
+                "unicode"
+            ],
+            "support": {
+                "issues": "https://github.com/stidges/country-flags/issues",
+                "source": "https://github.com/stidges/country-flags/tree/master"
+            },
+            "time": "2021-01-08T16:18:36+00:00"
+        },
+        {
             "name": "symfony/deprecation-contracts",
             "version": "2.5.x-dev",
             "source": {
@@ -875,6 +929,57 @@
                 }
             ],
             "time": "2023-01-24T14:02:46+00:00"
+        },
+        {
+            "name": "writecrow/country_code_converter",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/writecrow/country_code_converter.git",
+                "reference": "31a931066e6bfab9939ea448ab509ba6c8377ad7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/writecrow/country_code_converter/zipball/31a931066e6bfab9939ea448ab509ba6c8377ad7",
+                "reference": "31a931066e6bfab9939ea448ab509ba6c8377ad7",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance",
+                "symfony/polyfill-mbstring": "If you can't install ext-mbstring"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "writecrow\\CountryCodeConverter\\": [
+                        "src/",
+                        "test/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Fullmer",
+                    "email": "mark.writecrow@gmail.com",
+                    "homepage": "https://markfullmer.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Convert country name to codes or vice-versa.",
+            "support": {
+                "email": "mark.writecrow@gmail.com",
+                "issues": "https://github.com/writecrow/country_code_converter/issues",
+                "source": "https://github.com/writecrow/country_code_converter"
+            },
+            "time": "2023-08-23T22:44:05+00:00"
         }
     ],
     "packages-dev": [],
@@ -882,7 +987,9 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "paquettg/php-html-parser": 20,
-        "mistic100/randomcolor": 20
+        "mistic100/randomcolor": 20,
+        "stidges/country-flags": 20,
+        "writecrow/country_code_converter": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

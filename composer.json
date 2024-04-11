@@ -12,6 +12,8 @@
     ],
     "require": {
         "paquettg/php-html-parser": "dev-master",
-        "mistic100/randomcolor": "dev-master"
+        "mistic100/randomcolor": "dev-master",
+        "stidges/country-flags": "dev-master",
+        "writecrow/country_code_converter": "dev-main"
     }
 }

@@ -3,6 +3,8 @@
 require "vendor/autoload.php";
 use PHPHtmlParser\Dom;
 use \Colors\RandomColor;
+use Stidges\CountryFlags\CountryFlag;
+use writecrow\CountryCodeConverter\CountryCodeConverter;
 
 //$scores_file = 'scores.html';
 //
@@ -74,6 +76,7 @@ foreach($results as $key => $result){
 $lines = explode(PHP_EOL, file_get_contents('players'));
 
 $players = [];
+$countries = [];
 
 foreach ($lines as $line){
     $chunks = explode('|', $line);
@@ -87,6 +90,7 @@ foreach ($lines as $line){
                 'country' => $chunks[2],
                 'score' => $result['score']
             ];
+            $countries[$chunks[1]] = $chunks[2];
         }
     }
 }
@@ -112,7 +116,8 @@ foreach ($lines as $line){
 
     $entries[] = [
         'name' => $chunks[0],
-        'choices' => $choices
+        'country' => $player['country'],
+        'choices' => $choices,
     ];
 }
 
@@ -154,8 +159,19 @@ $year = date("Y");
 $date = date("Md");
 $time = date('H:i:s');
 
+function getCountryIcon($country){
+    if($country == 'Northern Ireland') return 'gb-nir';
+
+    if($country == 'United States') $country = 'United States of America';
+
+    $code = CountryCodeConverter::convert($country);
+
+    return strtolower($code);
+}
+
 echo <<< EOT
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"/>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -194,9 +210,8 @@ foreach($standings as $entrant => $standing){
     echo "<td class='entry-name' style='background: $color'>$entrant<//td>" . PHP_EOL;
     echo "<td>$overall</td>" . PHP_EOL;
 
-
     foreach($standing['players'] as $player => $score){
-        echo "<td>$player</td>" . PHP_EOL;
+        echo "<td>$player " . '<span class="fi fi-' . getCountryIcon($countries[$player]) . '"></span>' . "</td>" . PHP_EOL;
         echo "<td>$score</td>" . PHP_EOL;
     }
     $count ++;
