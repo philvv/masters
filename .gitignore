@@ -1,2 +1,10 @@
 /vendor
 .idea
+dump
+group_a
+group_b
+group_c
+grouped_players
+group_players.php
+create_players.php
+compare.php

@@ -1,7 +1,5 @@
 <?php
 
-exit();
-
 $dump = file_get_contents('dump');
 
 $lines = explode(PHP_EOL, $dump);
