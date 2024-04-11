@@ -2,6 +2,7 @@
 //error_reporting(E_ALL & ~E_NOTICE);
 require "vendor/autoload.php";
 use PHPHtmlParser\Dom;
+use \Colors\RandomColor;
 
 //$scores_file = 'scores.html';
 //
@@ -26,7 +27,9 @@ unset($contents[0]);
 
 $results = array();
 
-$colors = array("Moccasin", "white", "yellow", "LightBlue", "SandyBrown", "cyan", "pink", "LightGray");
+$colors = RandomColor::many(15, array(
+    'hue' => 'random'
+));
 
 foreach ($contents as $content) {
     $tds = explode('<td class="PlayerRow__Overview PlayerRow__Overview--expandable Table__TR Table__even">', $content);
