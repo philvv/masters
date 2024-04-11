@@ -37,11 +37,11 @@ foreach ($contents as $content) {
 
     $bits = explode(">", $bits[1]);
     $name = explode("<", $bits[1])[0];
-    $name = trim(strtolower(explode('(a)', $name)[0]));
-    $name = str_replace(' ', '-', $name);
+    //$name = trim(strtolower(explode('(a)', $name)[0]));
+    //$name = str_replace(' ', '-', $name);
 
     $results[] = [
-        'player'  => strtolower($name),
+        'player'  => $name,
         'overall' => str_replace('</td', '', $bits[4]),
         'round_1' => str_replace('</td', '', $bits[10]),
         'round_2' => str_replace('</td', '', $bits[12]),
@@ -68,35 +68,57 @@ foreach($results as $key => $result){
     unset($results[$key]['round_4']);
 }
 
-$players_raw = file_get_contents('players');
+$lines = explode(PHP_EOL, file_get_contents('players'));
+
 $players = [];
 
-foreach (explode(PHP_EOL, $players_raw) as $player){
-    $chunks = explode(' ', $player);
-    $players[$chunks[0]] = $chunks[1];
+foreach ($lines as $line){
+    $chunks = explode('|', $line);
+    if(count($chunks) != 3) continue;
+
+    foreach ($results as $result){
+        if($result['player'] == $chunks[1]){
+            $players[] = [
+                'id' => $chunks[0],
+                'name' => $chunks[1],
+                'country' => $chunks[2],
+                'score' => $result['score']
+            ];
+        }
+    }
 }
 
-$entries_raw = file_get_contents('entries');
+$lines = explode(PHP_EOL, file_get_contents('entries'));
+
 $entries = [];
 
-foreach (explode(PHP_EOL, $entries_raw) as $entry){
-    $chunks = explode(' ', $entry);
-    $codes = explode(',', $chunks[1]);
+foreach ($lines as $line){
+    $chunks = explode(' ', $line);
 
+    $choices = [];
 
-    $players_code = [];
+    $ids = explode(',', $chunks[1]);
+
+    foreach($ids as $id){
+        foreach($players as $player) {
+            if ($id == $player['id']) {
+                $choices[] = $player['name'];
+            }
+        }
+    }
 
     $entries[] = [
         'name' => $chunks[0],
-        'players' => [$players[$codes[0]], $players[$codes[1]], $players[$codes[2]], $players[$codes[3]]]
+        'choices' => $choices
     ];
 }
 
-$standings = array();
+$standings = [];
 
 foreach($entries as $entry){
     $entrant = $entry['name'];
-    foreach($entry['players'] as $chosen_player){
+
+    foreach($entry['choices'] as $chosen_player){
         $found = false;
 
         foreach ($results as $result){
@@ -104,7 +126,7 @@ foreach($entries as $entry){
                 $standings[$entrant]['players'][$chosen_player] = $result['score'];
 
                 $found = true;
-                echo $entrant . ' chose ' . $result['player'] . ' ' . $result['score'] . PHP_EOL;
+                // echo $entrant . ' chose ' . $result['player'] . ' ' . $result['score'] . PHP_EOL;
 
                 if(!isset($standings[$entrant]['overall'])){
                     $standings[$entrant]['overall'] = $result['score'];
