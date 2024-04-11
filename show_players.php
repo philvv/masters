@@ -17,4 +17,25 @@ foreach ($lines as $line){
     ];
 }
 
-print_r($players);
+echo <<< EOT
+
+<p>Players</p>
+<div class="content">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+EOT;
+foreach($players as $player){
+    echo "<tr>";
+    echo "<td>" . $player['id'] . "</td>";
+    echo "<td>" . $player['name'] . "</td>";
+    echo "<td>" . $player['country'] . "</td>";
+}
+
+echo "</tr></tbody></table>";

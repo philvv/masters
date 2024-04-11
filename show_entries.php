@@ -44,4 +44,29 @@ foreach ($lines as $line){
     ];
 }
 
-print_r($entries);
+echo <<< EOT
+
+<p>Entries</p>
+<div class="content">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                    <th>C</th>
+                </tr>
+            </thead>
+            <tbody>
+EOT;
+foreach($entries as $entry){
+    echo "<tr>";
+    echo "<td>" . $entry['name'] . "</td>";
+    echo "<td>" . $entry['choices'][0] . "</td>";
+    echo "<td>" . $entry['choices'][1] . "</td>";
+    echo "<td>" . $entry['choices'][2] . "</td>";
+    echo "<td>" . $entry['choices'][3] . "</td>";
+}
+
+echo "</tr></tbody></table>";
