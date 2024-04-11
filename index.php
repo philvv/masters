@@ -191,7 +191,7 @@ foreach($standings as $entrant => $standing){
     $overall = $standing['overall'];
     $color = $colors[$count];
     echo "<tr>" . PHP_EOL;
-    echo "<td style='color: black; background: $color'>$entrant<//td>" . PHP_EOL;
+    echo "<td class='entry-name' style='background: $color'>$entrant<//td>" . PHP_EOL;
     echo "<td>$overall</td>" . PHP_EOL;
 
 
