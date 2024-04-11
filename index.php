@@ -159,8 +159,9 @@ echo <<< EOT
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script src="script.js"></script>
 
-<h2>P130<span class="ceefax">Ceefax</span>130 $date <span style="color: yellow;">$time</span></h2>
+<h2>P130<span class="ceefax">Ceefax</span>130 $date <span id="time" style="color: yellow;"></span></h2>
 
 <h1>
     <span class="bbc">B</span><span class="bbc">B</span><span class="bbc">C</span><span class="ceefax" style="color: limegreen;">GOLF</span>
