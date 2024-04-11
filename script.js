@@ -5,4 +5,8 @@ function setTime(){
     time_placeholder.textContent = time;
 }
 
+window.addEventListener('load', function () {
+    setTime();
+});
+
 setInterval(() => setTime(),1000);
