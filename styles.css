@@ -51,10 +51,20 @@ table {
 th {
     text-align: left;
     padding: 1rem;
+    position: sticky;
 }
 
 td {
     padding: 1rem;
+}
+
+thead tr, th:first-child {
+    position: sticky;
+    width: 5em;
+    left: 0;
+    top: auto;
+    background: black;
+    z-index: 2000;
 }
 
 tr:nth-child(even) {
@@ -76,7 +86,14 @@ tr:nth-child(even) {
     margin-left: 10px;
 }
 
+
+
 .entry-name {
+    z-index: 2000;
+    position: sticky;
+    width: 5em;
+    left: 0;
+    top: auto;
     color: white;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
