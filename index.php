@@ -134,12 +134,12 @@ foreach($entries as $entry){
                 $standings[$entrant]['players'][$chosen_player] = $result['score'];
 
                 $found = true;
-                echo $entrant . ' chose ' . $result['player'] . ' ' . $result['score'] ?? 0 . PHP_EOL;
+                // echo $entrant . ' chose ' . $result['player'] . ' ' . $result['score'] . PHP_EOL;
 
                 if(!isset($standings[$entrant]['overall'])){
                     $standings[$entrant]['overall'] = $result['score'];
                 } else {
-                    $standings[$entrant]['overall'] = $standings[$entrant]['overall'] + $result['score'];
+                    $standings[$entrant]['overall'] = $standings[$entrant]['overall'] + $result['score'] ?? 0;
                 }
                 break;
             }
