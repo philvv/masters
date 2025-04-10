@@ -54,7 +54,7 @@ echo <<< EOT
                     <th>Name</th>
                     <th>A</th>
                     <th>B</th>
-                    <th>C</th>
+                    <th>B</th>
                     <th>C</th>
                 </tr>
             </thead>
