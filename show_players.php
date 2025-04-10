@@ -6,6 +6,34 @@ $lines = explode(PHP_EOL, $dump);
 
 $players = [];
 
+//$index = 0;
+//$id = 1;
+//
+//while(true){
+//    if(!isset($lines[$index])) break;
+//
+//    $country = trim($lines[$index]);
+//    $player = trim($lines[$index + 1]);
+//
+//    $players[] = [
+//        'id' => $id,
+//        'name' => trim($lines[$index + 1]),
+//        'country' => trim($lines[$index])
+//    ];
+//
+//    $id++;
+//    $index += 3;
+//}
+//
+//$output = '';
+//
+//foreach($players as $player){
+//    $output .= $player['id'] . '|' . $player['name'] . '|' . $player['country'] . PHP_EOL;
+//}
+//
+//
+//var_dump($output);exit();
+
 foreach ($lines as $line){
     $chunks = explode('|', $line);
     if(count($chunks) != 3) continue;
