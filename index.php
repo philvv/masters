@@ -1,5 +1,5 @@
 <?php
-//error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ERROR);
 require "vendor/autoload.php";
 use PHPHtmlParser\Dom;
 use \Colors\RandomColor;
@@ -22,6 +22,7 @@ $html = file_get_contents('https://www.espn.com/golf/leaderboard');
 
 $dom = new Dom;
 $dom->loadStr($html);
+
 
 $contents = $dom->find('tr');
 
@@ -88,7 +89,7 @@ foreach ($lines as $line){
                 'id' => $chunks[0],
                 'name' => $chunks[1],
                 'country' => $chunks[2],
-                'score' => $result['score']
+                'score' => (int) $result['score']
             ];
             $countries[$chunks[1]] = $chunks[2];
         }
@@ -131,15 +132,15 @@ foreach($entries as $entry){
 
         foreach ($results as $result){
             if(stripos($result['player'], $chosen_player)  !== false){
-                $standings[$entrant]['players'][$chosen_player] = $result['score'];
+                $standings[$entrant]['players'][$chosen_player] = (int) $result['score'];
 
                 $found = true;
                 // echo $entrant . ' chose ' . $result['player'] . ' ' . $result['score'] . PHP_EOL;
 
                 if(!isset($standings[$entrant]['overall'])){
-                    $standings[$entrant]['overall'] = $result['score'];
+                    $standings[$entrant]['overall'] = (int) $result['score'];
                 } else {
-                    $standings[$entrant]['overall'] = $standings[$entrant]['overall'] + $result['score'];
+                    $standings[$entrant]['overall'] = (int) $standings[$entrant]['overall'] + (int) $result['score'];
                 }
                 break;
             }
