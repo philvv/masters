@@ -137,9 +137,9 @@ foreach($entries as $entry){
                 // echo $entrant . ' chose ' . $result['player'] . ' ' . $result['score'] . PHP_EOL;
 
                 if(!isset($standings[$entrant]['overall'])){
-                    $standings[$entrant]['overall'] = $result['score'];
+                    $standings[$entrant]['overall'] = $result['score'] ?? 0;
                 } else {
-                    $standings[$entrant]['overall'] = $standings[$entrant]['overall'] + $result['score'] ?? 0;
+                    $standings[$entrant]['overall'] = $standings[$entrant]['overall'] ?? 0 + $result['score'] ?? 0;
                 }
                 break;
             }
