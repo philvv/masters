@@ -1,95 +1,91 @@
-1|Patton Kizzire|United States
-2|Davis Riley|United States
-3|Jhonattan Vegas|Venezuela
-4|Nicolai Højgaard|Denmark
-5|Kevin Yu|Chinese Taipei
-6|Mike Weir|Canada
-7|Michael Kim|United States
-8|Cameron Young|United States
-9|Zach Johnson|United States
-10|Chris Kirk|United States
-11|Joe Highsmith|United States
-12|Danny Willett|England
-13|Nicolas Echavarria|Colombia
-14|Davis Thompson|United States
-15|Bernhard Langer|Germany
-16|Will Zalatoris|United States
-17|Noah Kent (a)|United States
-18|Cameron Smith|Australia
-19|J.T. Poston|United States
-20|Aaron Rai|England
-21|Fred Couples|United States
-22|Harris English|United States
-23|Taylor Pendrith|Canada
-24|Brian Harman|United States
-25|Stephan Jaeger|Germany
-26|Corey Conners|Canada
-27|Byeong Hun An|South Korea
-28|Patrick Reed|United States
-29|Max Greyserman|United States
-30|Billy Horschel|United States
-31|Robert MacIntyre|Scotland
-32|Nick Dunlap|United States
-33|Collin Morikawa|United States
-34|Joaquín Niemann|Chile
-35|Min Woo Lee|Australia
-36|Phil Mickelson|United States
-37|Jason Day|Australia
-38|Keegan Bradley|United States
-39|Justin Thomas|United States
-40|Scottie Scheffler|United States
-41|Jose Luis Ballester (a)|Spain
-42|Jordan Spieth|United States
-43|Tyrrell Hatton|England
-44|Tom Kim|South Korea
-45|Tony Finau|United States
-46|Thomas Detry|Belgium
-47|Maverick McNealy|United States
-48|Rafael Campos|Puerto Rico
-49|Cam Davis|Australia
-50|Austin Eckroat|United States
-51|Ángel Cabrera|Argentina
-52|Laurie Canter|England
-53|Adam Schenk|United States
-54|José María Olazábal|Spain
-55|Thriston Lawrence|South Africa
-56|Brian Campbell|United States
-57|Bubba Watson|United States
-58|Evan Beck (a)|United States
-59|Matthieu Pavon|France
-60|Tom Hoge|United States
-61|Christiaan Bezuidenhout|South Africa
-62|Matt McCarty|United States
-63|Charl Schwartzel|South Africa
-64|Denny McCarthy|United States
-65|Hiroshi Tai (a)|Singapore
-66|Justin Rose|England
-67|Max Homa|United States
-68|J.J. Spaun|United States
-69|Dustin Johnson|United States
-70|Nick Taylor|Canada
-71|Justin Hastings (a)|Cayman Islands
-72|Sergio Garcia|Spain
-73|Lucas Glover|United States
-74|Daniel Berger|United States
-75|Patrick Cantlay|United States
-76|Matt Fitzpatrick|England
-77|Rasmus Højgaard|Denmark
-78|Russell Henley|United States
-79|Brooks Koepka|United States
-80|Sungjae Im|South Korea
-81|Adam Scott|Australia
-82|Xander Schauffele|United States
-83|Viktor Hovland|Norway
-84|Rory McIlroy|Northern Ireland
-85|Ludvig Åberg|Sweden
-86|Akshay Bhatia|United States
-87|Shane Lowry|Ireland
-88|Hideki Matsuyama|Japan
-89|Bryson DeChambeau|United States
-90|Tommy Fleetwood|England
-91|Jon Rahm|Spain
-92|Wyndham Clark|United States
-93|Sepp Straka|Austria
-94|Sam Burns|United States
-95|Sahith Theegala|United States
+1|Ludvig Åberg|Sweden
+2|Sam Burns|United States
+3|Patrick Cantlay|United States
+4|Wyndham Clark|United States
+5|Bryson DeChambeau|United States
+6|Matt Fitzpatrick|England
+7|Tommy Fleetwood|England
+8|Brian Harman|United States
+9|Max Homa|United States
+10|Viktor Hovland|Norway
+11|Dustin Johnson|United States
+12|Brooks Koepka|United States
+13|Rory McIlroy|Northern Ireland
+14|Collin Morikawa|United States
+15|Jon Rahm|Spain
+16|Xander Schauffele|United States
+17|Scottie Scheffler|United States
+18|Jordan Spieth|United States
+19|Justin Thomas|United States
+20|Cameron Young|United States
+21|Alex Noren|Sweden
+22|Andrew Novak|United States
+23|Patrick Reed|United States
+24|Justin Rose|England
+25|Cameron Smith|Australia
+26|J.J. Spaun|United States
+27|Sepp Straka|Austria
+28|Bubba Watson|United States
+29|Daniel Berger|United States
+30|Akshay Bhatia|United States
+31|Keegan Bradley|United States
+32|Corey Conners|Canada
+33|Jason Day|Australia
+34|Nicolas Echavarria|Colombia
+35|Harris English|United States
+36|Ryan Fox|New Zealand
+37|Sergio Garcia|Spain
+38|Chris Gotterup|United States
+39|Max Greyserman|United States
+40|Ben Griffin|United States
+41|Tyrrell Hatton|England
+42|Russell Henley|United States
+43|Sungjae Im|South Korea
+44|Min Woo Lee|Australia
+45|Shane Lowry|Ireland
+46|Robert MacIntyre|Scotland
+47|Hideki Matsuyama|Japan
+48|Matt McCarty|United States
+49|Jake Knapp|United States
+50|Fifa Laopakdee|Thailand
+51|Haotong Li|China
+52|Tom McKibbin|Northern Ireland
+53|Maverick McNealy|United States
+54|Rasmus Neergaard-Petersen|Denmark
+55|José María Olazábal|Spain
+56|Carlos Ortiz|Mexico
+57|Michael Brennan|United States
+58|Jacob Bridgeman|United States
+59|Ángel Cabrera|Argentina
+60|Brian Campbell|United States
+61|Fred Couples|United States
+62|Ethan Fang|United States
+63|Ryan Gerard|United States
+64|Harry Hall|England
+65|Jackson Herrington|United States
+66|Nicolai Højgaard|Denmark
+67|Rasmus Højgaard|Denmark
+68|Brandon Holtz|United States
+69|Mason Howell|United States
+70|Casey Jarvis|South Africa
+71|Zach Johnson|United States
+72|Naoyuki Kataoka|Japan
+73|John Keefer|United States
+74|Michael Kim|United States
+75|Si Woo Kim|South Korea
+76|Kurt Kitayama|United States
+77|Marco Penge|England
+78|Aldrich Potgieter|South Africa
+79|Mateo Pulcini|Italy
+80|Aaron Rai|England
+81|Kristoffer Reitan|Norway
+82|Davis Riley|United States
+83|Charl Schwartzel|South Africa
+84|Adam Scott|Australia
+85|Vijay Singh|Fiji
+86|Samuel Stevens|United States
+87|Nick Taylor|Canada
+88|Sami Välimäki|Finland
+89|Mike Weir|Canada
+90|Danny Willett|England
+91|Gary Woodland|United States
