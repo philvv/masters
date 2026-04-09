@@ -30,7 +30,7 @@ unset($contents[0]);
 
 $results = array();
 
-$colors = RandomColor::many(15, array(
+$colors = RandomColor::many(30, array(
     'hue' => 'random'
 ));
 
@@ -49,6 +49,7 @@ foreach ($contents as $content) {
     $results[] = [
         'player'  => $name,
         'overall' => str_replace('</td', '', $bits[4]),
+        'tee_time' => trim(strip_tags(str_replace('</td', '', $bits[8]))),
         'round_1' => str_replace('</td', '', $bits[10]),
         'round_2' => str_replace('</td', '', $bits[12]),
         'round_3' => str_replace('</td', '', $bits[14]),
@@ -89,7 +90,8 @@ foreach ($lines as $line){
                 'id' => $chunks[0],
                 'name' => $chunks[1],
                 'country' => $chunks[2],
-                'score' => (int) $result['score']
+                'score' => (int) $result['score'],
+                'tee_time' => $result['tee_time']
             ];
             $countries[$chunks[1]] = $chunks[2];
         }
@@ -152,13 +154,21 @@ foreach($entries as $entry){
     }
 }
 
-uasort($standings, function($a, $b) {
-    return $a['overall'] - $b['overall'];
+uksort($standings, function ($entrant_a, $entrant_b) use ($standings) {
+    $overall_a = (int) ($standings[$entrant_a]['overall'] ?? 0);
+    $overall_b = (int) ($standings[$entrant_b]['overall'] ?? 0);
+    if ($overall_a !== $overall_b) {
+        return $overall_a <=> $overall_b;
+    }
+    return strcasecmp($entrant_a, $entrant_b);
 });
 
 $year = date("Y");
 $date = date("Md");
 $time = date('H:i:s');
+
+// Marquee tees: scraped text is usually Eastern; UK site shows local. Match UK with Europe/London, or use America/New_York for US.
+$tee_marquee_display_timezone = 'Europe/London';
 
 function getCountryIcon($country){
     if($country == 'Northern Ireland') return 'gb-nir';
@@ -169,6 +179,93 @@ function getCountryIcon($country){
 
     return strtolower($code);
 }
+
+function player_surname($full_name){
+    $full_name = trim((string) $full_name);
+    if ($full_name === '') {
+        return '';
+    }
+    $parts = preg_split('/\s+/u', $full_name);
+    return $parts[count($parts) - 1];
+}
+
+function tee_time_clean($tee_time_raw){
+    return trim(html_entity_decode(strip_tags((string) $tee_time_raw), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+}
+
+function parse_tee_time($tee_time_raw){
+    $clean = tee_time_clean($tee_time_raw);
+    if ($clean === '' || $clean === '-' || $clean === '—' || $clean === '–') {
+        return null;
+    }
+    if (preg_match('/^\d{4}-\d{2}-\d{2}[T\s]/', $clean)) {
+        $dt = date_create_immutable($clean);
+        return $dt !== false ? $dt : null;
+    }
+    if (preg_match('/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i', $clean, $m)) {
+        $tz_et = new DateTimeZone('America/New_York');
+        $today_et = (new DateTimeImmutable('now', $tz_et))->format('Y-m-d');
+        $line = sprintf('%s %d:%02d %s', $today_et, (int) $m[1], (int) $m[2], strtoupper($m[3]));
+        $dt = DateTimeImmutable::createFromFormat('Y-m-d g:i A', $line, $tz_et);
+        return $dt !== false ? $dt : null;
+    }
+    $parsed = strtotime($clean);
+    return $parsed !== false ? new DateTimeImmutable('@' . $parsed) : null;
+}
+
+function tee_time_sort_timestamp($tee_time_raw){
+    $dt = parse_tee_time($tee_time_raw);
+    return $dt !== null ? $dt->getTimestamp() : PHP_INT_MAX;
+}
+
+function tee_time_format_for_marquee($tee_time_raw, $display_timezone){
+    $dt = parse_tee_time($tee_time_raw);
+    if ($dt === null) {
+        return tee_time_clean($tee_time_raw);
+    }
+    return $dt->setTimezone(new DateTimeZone($display_timezone))->format('g:i A');
+}
+
+$tee_time_marquee_rows = [];
+foreach ($players as $marquee_player) {
+    $tee = trim((string) ($marquee_player['tee_time'] ?? ''));
+    if ($tee === '' || $tee === '-' || $tee === '—' || $tee === '–') {
+        continue;
+    }
+    $tee_time_marquee_rows[] = [
+        'sort' => tee_time_sort_timestamp($tee),
+        'name' => $marquee_player['name'],
+        'tee_raw' => $tee,
+    ];
+}
+usort($tee_time_marquee_rows, function ($a, $b){
+    if ($a['sort'] !== $b['sort']) {
+        return $a['sort'] <=> $b['sort'];
+    }
+    $by_surname = strcasecmp(player_surname($a['name']), player_surname($b['name']));
+    if ($by_surname !== 0) {
+        return $by_surname;
+    }
+    return strcasecmp($a['name'], $b['name']);
+});
+$tee_time_marquee_segments = [];
+$row_count = count($tee_time_marquee_rows);
+$i = 0;
+while ($i < $row_count) {
+    $block_sort = $tee_time_marquee_rows[$i]['sort'];
+    $names_html = [];
+    $tee_raw = $tee_time_marquee_rows[$i]['tee_raw'];
+    while ($i < $row_count && $tee_time_marquee_rows[$i]['sort'] === $block_sort) {
+        $names_html[] = htmlspecialchars(player_surname($tee_time_marquee_rows[$i]['name']), ENT_QUOTES, 'UTF-8');
+        $i++;
+    }
+    $time_html = htmlspecialchars(tee_time_format_for_marquee($tee_raw, $tee_marquee_display_timezone), ENT_QUOTES, 'UTF-8');
+    $tee_time_marquee_segments[] = implode(', ', $names_html) . ' — ' . $time_html;
+}
+$tee_time_marquee_text = count($tee_time_marquee_segments) > 0
+    ? implode(' &nbsp;&nbsp; ', $tee_time_marquee_segments)
+    : 'No tee times loaded';
+$tee_time_marquee_display = ' Up next... ' . $tee_time_marquee_text;
 
 echo <<< EOT
 
@@ -184,7 +281,8 @@ echo <<< EOT
     <span class="bbc">B</span><span class="bbc">B</span><span class="bbc">C</span><span class="ceefax" style="color: limegreen;">GOLF</span>
 </h1>
 <hr style="border-color: blue;">
-<p style="color: limegreen;">Masters tournament $year</p>
+<p style="color: limegreen; text-align: center;">Masters tournament $year</p>
+<marquee class="tee-times-marquee" width="100%" direction="left" scrollamount="4">$tee_time_marquee_display</marquee>
 <div class="content">
     <div class="table-responsive">
         <table class="table tftable">
@@ -209,14 +307,15 @@ foreach($standings as $entrant => $standing){
     $overall = $standing['overall'];
     $color = $colors[$count];
     echo "<tr>" . PHP_EOL;
-    echo "<td class='entry-name' style='background: $color'>$entrant<//td>" . PHP_EOL;
+    echo "<td class='entry-name' style='background: $color'>$entrant</td>" . PHP_EOL;
     echo "<td>$overall</td>" . PHP_EOL;
 
     foreach($standing['players'] as $player => $score){
         echo "<td>$player " . '<span class="fi fi-' . getCountryIcon($countries[$player]) . '"></span>' . "</td>" . PHP_EOL;
         echo "<td>$score</td>" . PHP_EOL;
     }
+    echo "</tr>" . PHP_EOL;
     $count ++;
 }
 
-echo "</tr></tbody></table></div><h2 class='ceefax' style='margin-top: 20px; text-align: center'>Ceefax: The world at your fingertips</h2>";
+echo "</tbody></table></div><h2 class='ceefax' style='margin-top: 20px; text-align: center'>Ceefax: The world at your fingertips</h2>";
