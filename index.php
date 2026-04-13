@@ -24,6 +24,15 @@ $dom = new Dom;
 $dom->loadStr($html);
 
 
+$status_node = $dom->find('.status.cf.mt4.mb4', 0);
+$round_status = '';
+if ($status_node) {
+    $status_span = $status_node->find('span', 0);
+    if ($status_span) {
+        $round_status = trim($status_span->text);
+    }
+}
+
 $contents = $dom->find('tr');
 
 unset($contents[0]);
@@ -46,14 +55,16 @@ foreach ($contents as $content) {
     //$name = trim(strtolower(explode('(a)', $name)[0]));
     //$name = str_replace(' ', '-', $name);
 
+    $is_final = strcasecmp($round_status, 'Final') === 0;
+
     $results[] = [
-        'player'  => $name,
-        'overall' => str_replace('</td', '', $bits[4]),
-        'tee_time' => trim(strip_tags(str_replace('</td', '', $bits[8]))),
-        'round_1' => str_replace('</td', '', $bits[10]),
-        'round_2' => str_replace('</td', '', $bits[12]),
-        'round_3' => str_replace('</td', '', $bits[14]),
-        'round_4' => str_replace('</td', '', $bits[16]),
+        'player'   => $name,
+        'overall'  => str_replace('</td', '', $bits[4]),
+        'tee_time' => $is_final ? '' : trim(strip_tags(str_replace('</td', '', $bits[8]))),
+        'round_1'  => str_replace('</td', '', $is_final ? $bits[6]  : $bits[10]),
+        'round_2'  => str_replace('</td', '', $is_final ? $bits[8]  : $bits[12]),
+        'round_3'  => str_replace('</td', '', $is_final ? $bits[10] : $bits[14]),
+        'round_4'  => str_replace('</td', '', $is_final ? $bits[12] : $bits[16]),
     ];
 }
 
